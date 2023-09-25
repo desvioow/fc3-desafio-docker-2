@@ -1,0 +1,47 @@
+version: '3'
+
+services:
+
+    reverse_proxy:
+        container_name: nginx    
+        image: nginx:1.25.2-alpine
+        volumes:
+            - ./nginx:/etc/nginx/conf.d
+        restart: always
+        tty: true
+        networks:
+        - custom_net
+        ports:
+        - "8080:80"
+
+    app:
+        container_name: node
+        build:
+            context: ./node
+        volumes:
+            - ./node:/usr/src/app
+        restart: always
+        tty: true
+        networks:
+            - custom_net
+        depends_on:
+            - db
+
+    db:
+        container_name: db
+        image: mysql:5.7
+        volumes:
+            - ./mysql:/var/lib/mysql
+        command: --innodb-use-native-aio=0
+        restart: always
+        tty: true
+        environment:
+            - MYSQL_DATABASE=nodedb
+            - MYSQL_ALLOW_EMPTY_PASSWORD=true
+        networks:
+            - custom_net
+        
+
+networks:
+    custom_net:
+        driver: bridge  

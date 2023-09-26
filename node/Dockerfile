@@ -6,4 +6,4 @@ RUN apk add --no-cache bash
 
 EXPOSE 5000
 ENTRYPOINT ["docker-entrypoint.sh"]
-CMD [ "node","index.js" ]
+CMD ["bash", "-c", "npm install;node index.js"]

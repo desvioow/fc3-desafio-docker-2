@@ -10,10 +10,20 @@ const config = {
 }
 const mysql = require('mysql')
 const connection = mysql.createConnection(config)
+const create_table_sql = `CREATE TABLE IF NOT EXISTS people(id int not null auto_increment, name varchar(255), primary key(id))`
 const insert_sql = `INSERT INTO people(name) VALUES('Lucas')`
 const select_sql = `SELECT name from people`
 
+
 // funções para interagir com db
+function create_people_table() {
+    
+    connection.query(create_table_sql, function (error, result) {
+        if (error) throw error;
+        console.log("tabela people criada com sucesso");
+    });
+}
+
 function insert_one_input_into_table() {
 
     connection.query(insert_sql, function (error, result) {
@@ -33,6 +43,9 @@ function select_all_data_from_db(callback) {
     });
 }
 
+
+// criando tabela no db
+create_people_table();
 
 // rotas
 app.get('/', (req,res) => {

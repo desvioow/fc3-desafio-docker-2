@@ -1,7 +1,4 @@
-# fc3-desafio-docker-2
- 
-Desafio 2) curso Full Cycle 3.0 - Docker
-
+# Desafio (2) curso Full Cycle 3.0 - Docker
 ## Descrição
 Ao acessar localhost:8080 a request primeiramente passará pelo nginx atuando como um proxy reverso, que por sua vez encaminha para outro container contendo uma aplicação feita com Node.js. Este se comunica com um terceiro container contendo um database mySQL para inserir e recuperar dados devolvendo de volta para o proxy reverso.
 
